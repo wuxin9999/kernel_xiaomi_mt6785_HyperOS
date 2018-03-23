@@ -167,6 +167,7 @@ kxgettext-objs	:= kxgettext.o zconf.tab.o
 
 hostprogs-y := conf kxgettext
 
+targets		+= zconf.lex.c
 clean-files	+= gconf.glade.h
 clean-files     += config.pot linux.pot
 
