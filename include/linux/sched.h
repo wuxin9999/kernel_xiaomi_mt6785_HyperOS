@@ -1386,12 +1386,14 @@ struct task_struct {
 	short nice_backup;
 	atomic_t inherit_types;
 #endif
-
 	struct {
 		struct work_struct work;
 		atomic_t running;
 		bool free_stack;
 	} async_free;
+#ifdef CONFIG_ANDROID_SIMPLE_LMK
+	struct task_struct		*simple_lmk_next;
+#endif
 
 	/*
 	 * New fields for task_struct should be added above here, so that
