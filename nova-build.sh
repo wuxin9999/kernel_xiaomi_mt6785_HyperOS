@@ -59,7 +59,7 @@ if [[ $1 = "-b" || $1 = "--build" ]]; then
 		# Set kernel name and version
 		hash=$(git log -n 1 --pretty=format:'%h' | cut -c 1-7)
 		lastcommit=$hash
-		REVISION=NoVA-$BRANCH_NAME
+		REVISION=NoVA-$(git rev-parse --abbrev-ref HEAD)
 		ZIPNAME=""$REVISION"-begonia-$(date '+%d.%m.%y-%H%M').zip"
 		echo -e ""
 		echo -e ""
