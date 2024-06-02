@@ -59,7 +59,11 @@
 #include <net/rtnetlink.h>
 #include <net/net_namespace.h>
 
+#ifdef CONFIG_MTK_NET_LOGGING
+#include <linux/stacktrace.h>
+#include <linux/sched/debug.h>
 #define RTNL_DEBUG_ADDRS_COUNT 10
+#define RTNL_LOCK_MAX_HOLD_TIME 3
 
 struct rtnl_debug_btrace_t {
 	struct task_struct *task;
@@ -82,11 +86,6 @@ static struct rtnl_debug_btrace_t rtnl_instance = {
 	.flag = 0,
 	.rtnl_lock_owner = NULL,
 };
-
-#ifdef CONFIG_MTK_NET_LOGGING
-#include <linux/stacktrace.h>
-#include <linux/sched/debug.h>
-#define RTNL_LOCK_MAX_HOLD_TIME 3
 
 static void rtnl_print_btrace(unsigned long data);
 static DEFINE_TIMER(rtnl_chk_timer, rtnl_print_btrace, 0, 0);
