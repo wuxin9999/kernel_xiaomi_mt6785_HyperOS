@@ -403,7 +403,7 @@ int wakeup_ta_algo(int flow_state)
 		kfree(tad_msg);
 		return 0;
 	}
-	pr_err("[%s] error,g_tad_pid=0\n", __func__);
+	pr_debug("[%s] error,g_tad_pid=0\n", __func__);
 	g_ta_status = g_ta_status | 0x00001000;
 	return -1;
 }
