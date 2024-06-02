@@ -6180,7 +6180,7 @@ void add_round_corner_layers(
 	}
 }
 #endif
-
+#ifdef CONFIG_TRACING
 static bool disp_rsz_frame_has_rsz_layer(struct disp_frame_cfg_t *cfg)
 {
 	int i = 0;
@@ -6212,7 +6212,7 @@ static bool disp_rsz_frame_has_rsz_layer(struct disp_frame_cfg_t *cfg)
 
 	return rsz;
 }
-
+#endif
 static void rsz_in_out_roi(struct disp_frame_cfg_t *cfg,
 				struct disp_ddp_path_config *data_config)
 {
@@ -6369,9 +6369,10 @@ static int _config_ovl_input(struct disp_frame_cfg_t *cfg,
 			assign_full_lcm_roi(&total_dirty_roi);
 	}
 
+#ifdef CONFIG_TRACING
 	if (disp_rsz_frame_has_rsz_layer(cfg))
 		assign_full_lcm_roi(&total_dirty_roi);
-
+#endif
 	rsz_in_out_roi(cfg, data_config);
 
 	for (i = 0; i < cfg->input_layer_num; i++) {
