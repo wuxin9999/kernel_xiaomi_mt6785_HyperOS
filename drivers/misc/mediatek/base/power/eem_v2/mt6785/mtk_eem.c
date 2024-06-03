@@ -383,6 +383,7 @@ static int get_devinfo(void)
 	 * One-line
 	 */
 
+#ifdef CONFIG_MTK_RAM_CONSOLE
 	/* CCI */
 	aee_rr_rec_ptp_devinfo_3((unsigned int) pi_efuse_idx[0].orig_mdes_bdes);
 	aee_rr_rec_ptp_devinfo_4((unsigned int) pi_efuse_idx[0].orig_mtdes);
@@ -395,7 +396,6 @@ static int get_devinfo(void)
 
 	/* Big: MDES and BDES */
 	aee_rr_rec_ptp_devinfo_7((unsigned int) pi_efuse_idx[2].orig_mdes_bdes);
-
 	/*
 	 * Two-line
 	 */
@@ -406,6 +406,7 @@ static int get_devinfo(void)
 
 	/* Big_Low */
 	aee_rr_rec_ptp_cpu_2_little_volt_1(pi_efuse_idx[4].orig_mbb);
+#endif
 #endif
 #endif
 
