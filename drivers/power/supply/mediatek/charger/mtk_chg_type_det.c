@@ -271,7 +271,7 @@ static int mt_charger_set_property(struct power_supply *psy,
 	queue_work(cti->chg_in_wq, &cti->chg_in_work);
 	#ifdef CONFIG_EXTCON_USB_CHG
 	if (!IS_ERR(info->edev))
-		queue_delayed_work(system_power_efficient_wq,
+		schedule_delayed_work(
 			&info->wq_detcable, info->debounce_jiffies);
 	#endif
 

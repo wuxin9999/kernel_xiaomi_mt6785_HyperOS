@@ -86,7 +86,7 @@ static irqreturn_t usb_irq_handler(int irq, void *dev_id)
 {
 	struct usb_extcon_info *info = dev_id;
 
-	queue_delayed_work(system_power_efficient_wq, &info->wq_detcable,
+	schedule_delayed_work( &info->wq_detcable,
 			   info->debounce_jiffies);
 
 	return IRQ_HANDLED;
@@ -218,7 +218,7 @@ static int usb_extcon_resume(struct device *dev)
 	if (info->id_gpiod)
 		enable_irq(info->id_irq);
 
-	queue_delayed_work(system_power_efficient_wq,
+	schedule_delayed_work(
 			   &info->wq_detcable, 0);
 
 	return ret;
