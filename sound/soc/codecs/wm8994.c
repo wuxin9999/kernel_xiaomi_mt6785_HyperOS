@@ -824,7 +824,7 @@ static int clk_sys_event(struct snd_soc_dapm_widget *w,
 		 * don't want false reports.
 		 */
 		if (wm8994->jackdet && !wm8994->clk_has_run) {
-			queue_delayed_work(system_power_efficient_wq,
+			schedule_delayed_work(
 					   &wm8994->jackdet_bootstrap,
 					   msecs_to_jiffies(1000));
 			wm8994->clk_has_run = true;
@@ -3495,7 +3495,7 @@ static irqreturn_t wm8994_mic_irq(int irq, void *data)
 
 	pm_wakeup_event(codec->dev, 300);
 
-	queue_delayed_work(system_power_efficient_wq,
+	schedule_delayed_work(
 			   &priv->mic_work, msecs_to_jiffies(250));
 
 	return IRQ_HANDLED;
@@ -3581,7 +3581,7 @@ static void wm8958_mic_id(void *data, u16 status)
 		/* If nothing present then clear our statuses */
 		dev_dbg(codec->dev, "Detected open circuit\n");
 
-		queue_delayed_work(system_power_efficient_wq,
+		schedule_delayed_work(
 				   &wm8994->open_circuit_work,
 				   msecs_to_jiffies(2500));
 		return;
@@ -3698,7 +3698,7 @@ static irqreturn_t wm1811_jackdet_irq(int irq, void *data)
 				    WM1811_JACKDET_DB, 0);
 
 		delay = control->pdata.micdet_delay;
-		queue_delayed_work(system_power_efficient_wq,
+		schedule_delayed_work(
 				   &wm8994->mic_work,
 				   msecs_to_jiffies(delay));
 	} else {
@@ -3951,7 +3951,7 @@ static irqreturn_t wm8958_mic_irq(int irq, void *data)
 	id_delay = wm8994->wm8994->pdata.mic_id_delay;
 
 	if (wm8994->mic_detecting)
-		queue_delayed_work(system_power_efficient_wq,
+		schedule_delayed_work(
 				   &wm8994->mic_complete_work,
 				   msecs_to_jiffies(id_delay));
 	else

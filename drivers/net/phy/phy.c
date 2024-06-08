@@ -556,7 +556,7 @@ EXPORT_SYMBOL(phy_start_aneg);
  */
 void phy_start_machine(struct phy_device *phydev)
 {
-	queue_delayed_work(system_power_efficient_wq, &phydev->state_queue, HZ);
+	schedule_delayed_work( &phydev->state_queue, HZ);
 }
 EXPORT_SYMBOL_GPL(phy_start_machine);
 
@@ -576,7 +576,7 @@ void phy_trigger_machine(struct phy_device *phydev, bool sync)
 		cancel_delayed_work_sync(&phydev->state_queue);
 	else
 		cancel_delayed_work(&phydev->state_queue);
-	queue_delayed_work(system_power_efficient_wq, &phydev->state_queue, 0);
+	schedule_delayed_work( &phydev->state_queue, 0);
 }
 
 /**
@@ -1076,7 +1076,7 @@ void phy_state_machine(struct work_struct *work)
 	 * between states from phy_mac_interrupt()
 	 */
 	if (phydev->irq == PHY_POLL)
-		queue_delayed_work(system_power_efficient_wq, &phydev->state_queue,
+		schedule_delayed_work( &phydev->state_queue,
 				   PHY_STATE_TIME * HZ);
 }
 

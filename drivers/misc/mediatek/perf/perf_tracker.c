@@ -126,7 +126,7 @@ static void fuel_gauge_handler(struct work_struct *work)
 
 	trace_fuel_gauge(curr, volt);
 
-	queue_delayed_work(system_power_efficient_wq,
+	schedule_delayed_work(
 			&fuel_gauge, msecs_to_jiffies(fuel_gauge_delay));
 }
 #endif
@@ -363,7 +363,7 @@ static ssize_t store_fuel_gauge_enable(struct kobject *kobj,
 				fuel_gauge_delay : 8;
 
 		/* start fuel gauge tracking */
-		queue_delayed_work(system_power_efficient_wq,
+		schedule_delayed_work(
 				&fuel_gauge,
 				msecs_to_jiffies(fuel_gauge_delay));
 	}

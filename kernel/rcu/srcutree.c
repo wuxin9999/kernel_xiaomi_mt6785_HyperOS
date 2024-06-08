@@ -666,7 +666,7 @@ static void srcu_funnel_gp_start(struct srcu_struct *sp, struct srcu_data *sdp,
 	    rcu_seq_state(sp->srcu_gp_seq) == SRCU_STATE_IDLE) {
 		WARN_ON_ONCE(ULONG_CMP_GE(sp->srcu_gp_seq, sp->srcu_gp_seq_needed));
 		srcu_gp_start(sp);
-		queue_delayed_work(system_power_efficient_wq, &sp->work,
+		schedule_delayed_work( &sp->work,
 				   srcu_get_delay(sp));
 	}
 	raw_spin_unlock_irqrestore_rcu_node(sp, flags);
@@ -1200,7 +1200,7 @@ static void srcu_reschedule(struct srcu_struct *sp, unsigned long delay)
 	raw_spin_unlock_irq_rcu_node(sp);
 
 	if (pushgp)
-		queue_delayed_work(system_power_efficient_wq, &sp->work, delay);
+		schedule_delayed_work( &sp->work, delay);
 }
 
 /*
