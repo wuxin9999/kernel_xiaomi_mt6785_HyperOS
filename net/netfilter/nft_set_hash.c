@@ -319,7 +319,7 @@ out:
 
 	nft_set_gc_batch_complete(gcb);
 schedule:
-	queue_delayed_work(system_power_efficient_wq, &priv->gc_work,
+	schedule_delayed_work( &priv->gc_work,
 			   nft_set_gc_interval(set));
 }
 
@@ -346,7 +346,7 @@ static int nft_rhash_init(const struct nft_set *set,
 
 	INIT_DEFERRABLE_WORK(&priv->gc_work, nft_rhash_gc);
 	if (set->flags & NFT_SET_TIMEOUT)
-		queue_delayed_work(system_power_efficient_wq, &priv->gc_work,
+		schedule_delayed_work( &priv->gc_work,
 				   nft_set_gc_interval(set));
 	return 0;
 }
