@@ -544,6 +544,7 @@ KBUILD_AFLAGS	+= $(CLANG_FLAGS)
 export CLANG_FLAGS
 ifeq ($(ld-name),lld)
 KBUILD_CFLAGS += -fuse-ld=lld
+LDFLAGS += --lto-O3
 endif
 KBUILD_CPPFLAGS += -Qunused-arguments
 endif
@@ -927,8 +928,8 @@ endif
 
 ifdef CONFIG_LTO_CLANG
 ifdef CONFIG_THINLTO
-lto-clang-flags	:= -flto=thin
-LDFLAGS		+= --thinlto-cache-dir=.thinlto-cache
+lto-clang-flags	:= -flto=full
+LDFLAGS		+= --fulllto-cache-dir=.fulllto-cache --lto-O3
 else
 lto-clang-flags	:= -flto
 endif
