@@ -10,8 +10,8 @@ AK3_DIR="$HOME/tc/Anykernel"
 DEFCONFIG="begonia_user_defconfig"
 
 # Exports for shits and giggles
-export KBUILD_BUILD_USER=NoVA
-export KBUILD_BUILD_HOST=Abdul7852
+export KBUILD_BUILD_USER=El
+export KBUILD_BUILD_HOST=HyperNotAryanX97
 
 # Install needed tools
 if [[ $1 = "-t" || $1 = "--tools" ]]; then
